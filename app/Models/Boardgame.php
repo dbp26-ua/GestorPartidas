@@ -14,4 +14,8 @@ class Boardgame extends Model
         'description',
         'photo'
     ];
+
+    public function users() {
+        $this->belongsToMany(User::class);
+    }
 }
