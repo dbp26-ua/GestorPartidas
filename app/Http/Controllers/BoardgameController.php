@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class BoardgameController extends Controller {
 
@@ -22,5 +23,13 @@ class BoardgameController extends Controller {
         $boardgame = Boardgame::findOrFail($id);
 
         return view('boardgames.show', compact('boardgame'));
+    }
+
+    public function add($id) {
+        $user = auth()->user();
+
+        $user->boardgames()->syncWithoutDetaching([$id]);
+
+        return redirect()->route('boardgames.index');
     }
 }

@@ -13,11 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_boardgame', function (Blueprint $table) {
+        Schema::create('boardgame_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('boardgame_id')->constrained('boardgames')->onDelete('cascade');
+            $table->unsignedBiginteger('boardgame_id');
+            $table->unsignedBiginteger('user_id');
             $table->timestamps();
+
+            $table->foreign('boardgame_id')->references('id')->on('boardgames')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

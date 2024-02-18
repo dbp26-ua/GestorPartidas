@@ -1,0 +1,36 @@
+/* styles.css */
+
+/* Otros estilos... */
+
+/* Nuevo bloque de estilos para la animación del botón */
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25%, 75% {
+        transform: translateX(-5px);
+    }
+    50% {
+        transform: translateX(5px);
+    }
+}
+
+/* Puedes agregar este estilo a tu archivo de estilos CSS o en línea */
+.jumbotron {
+    height: 100vh; /* 100% de la altura de la ventana */
+    border-radius: 0; /* Eliminar el redondeo de las esquinas si lo deseas */
+}
+
+/* Ajusta según sea necesario para otros elementos en tu página */
+.container {
+    margin-top: 2rem;
+}
+
+
+.shake-animation {
+    animation: shake 0.5s infinite;
+}
+
+.carousel-control-prev, .carousel-control-next {
+    color: black !important;
+}

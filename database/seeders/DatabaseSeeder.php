@@ -43,6 +43,7 @@ class DatabaseSeeder extends Seeder
             'admin' => true,
         ]);
 
+        // Primer juego
         Boardgame::create([
             'name' => 'Monopoly',
             'description' => 'Juego de gestión relativamente sencillo.',
@@ -55,12 +56,58 @@ class DatabaseSeeder extends Seeder
             'description' => 'Tablero del Monopoly inspirado en España.',
         ]);
 
+        // Segundo juego
+        Boardgame::create([
+            'name' => 'Parchís',
+            'description' => 'Juego con casillas y dados.',
+            'photo' => 'images/juego2.png',
+        ]);
+
+        Board::create([
+            'name' => 'Clásico',
+            'boardgame_id' => 2,
+            'description' => 'Tablero del Parchís clásico.',
+        ]);
+
+        // Tercer juego
+        Boardgame::create([
+            'name' => 'Cluedo',
+            'description' => 'Juego para sentirte como un verdadero detective.',
+            'photo' => 'images/juego3.png',
+        ]);
+
+        Board::create([
+            'name' => 'Mansión',
+            'boardgame_id' => 3,
+            'description' => 'Tablero del Cluedo inspirado en una mansión.',
+        ]);
+
+        Board::create([
+            'name' => 'Hotel',
+            'boardgame_id' => 3,
+            'description' => 'Tablero del Cluedo inspirado en un hotel.',
+        ]);
+
+        // Cuarto juego
+        Boardgame::create([
+            'name' => 'Ajedrez',
+            'description' => 'Juego de una sorprendente complejidad estratégica.',
+            'photo' => 'images/juego4.png',
+        ]);
+
+        Board::create([
+            'name' => 'Clásico',
+            'boardgame_id' => 4,
+            'description' => 'Tablero del Ajedrez clásico.',
+        ]);
+
         Game::create([
             'description' => "Partida para jugar al Monopoly",
             'boardgame_id' => 1,
+            'user_id' => 6,
             'closed' => false,
             'max_players' => 5,
-            'players' => 0,
+            'players' => 1,
             'place' => 'Alicante',
         ]);
 
@@ -68,7 +115,7 @@ class DatabaseSeeder extends Seeder
             'author' => 'Usuario de ejemplo',
             'game_id' => 1,
             'text' => 'Comentario de ejemplo',
-            'user_id' => 1,
+            'user_id' => 6,
         ]);
     }
 }
