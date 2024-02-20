@@ -27,4 +27,14 @@
             </ul>
         </p>
     </div>
+
+    <div>
+        @if($game->creator->id != Auth::user()->id)
+            @if(in_array(Auth::user()->id, $game->users->pluck('id')->toArray()))
+                <a class="btn btn-info" href="{{ route('user.games.remove', $game->id) }}">Salirse</a>
+            @else
+                <a class="btn btn-info" href="{{ route('user.games.add', $game->id) }}">Unirse</a>
+            @endif
+        @endif
+    </div>
 @endsection

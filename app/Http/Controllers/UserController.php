@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\Game;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -39,6 +40,30 @@ class UserController extends Controller {
             $boardgames = $user->boardgames();
 
             return view('users.boardgames', compact('boardgames'));
+        } else {
+            return redirect()->route('login');
+        }
+    }
+
+    public function add($id) {
+        if(Auth::check()) {
+            $user = Auth::user();
+            $user->games()->syncWithoutDetaching([$id]);
+
+            $game = Game::findOrFail($id);
+            $game->players = $game->player + 1;
+        } else {
+            return redirect()->route('login');
+        }
+    }
+
+    public function remove($id) {
+        if(Auth::check()) {
+            $user = Auth::user();
+            $user->games()->detach($id);
+
+            $game = Game::findOrFail($id);
+            $game->players = $game->player - 1;
         } else {
             return redirect()->route('login');
         }
