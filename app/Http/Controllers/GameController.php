@@ -26,7 +26,7 @@ class GameController extends Controller {
     }
 
     public function create() {
-        $boardgames = Boardgame::all();
+        $boardgames = Auth::user()->boardgames;
 
         return view('games.create', compact('boardgames'));
     }
