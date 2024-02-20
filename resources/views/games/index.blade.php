@@ -34,4 +34,8 @@
             </table>
         </div>
     </div>
+
+    <div>
+        <a href="{{ route('games.create') }}" class="btn btn-primary">Crear partida</a>
+    </div>
 @endsection

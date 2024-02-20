@@ -25,8 +25,12 @@ Auth::routes();
 
 Route::get('/games', [GameController::class, 'index'])->name('games.index');
 Route::get('/games/{id}', [GameController::class, 'show'])->name('games.show');
+Route::post('/games/store', [GameController::class, 'store'])->name('games.store');
+Route::get('/games/create', [GameController::class, 'create'])->name('games.create');
+
 Route::get('/boardgames', [BoardgameController::class, 'index'])->name('boardgames.index');
 Route::get('/boardgames/add/{id}', [BoardgameController::class, 'add'])->name('boardgames.add');
+
 Route::get('/profile', [UserController::class, 'show'])->name('user.show');
 Route::get('/user/games', [UserController::class, 'games'])->name('user.games');
 Route::get('/user/boardgames', [UserController::class, 'boardgames'])->name('user.boardgames');
