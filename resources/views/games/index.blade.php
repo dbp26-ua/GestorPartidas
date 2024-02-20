@@ -26,7 +26,7 @@
                             <td>{{ $game->players }} / {{ $game->max_players }}</td>
                             <td>{{ $game->closed ? "Cerrado" : "Abierto" }}</td>
                             <td>
-                            <a class="btn btn-info" href="{{ route('games.show', $game->id) }}">Ver detalles</a>
+                                <a class="btn btn-info" href="{{ route('games.show', $game->id) }}">Ver detalles</a>
                             </td>
                         </tr>
                     @endforeach

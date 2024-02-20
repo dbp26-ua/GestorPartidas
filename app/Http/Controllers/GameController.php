@@ -33,16 +33,20 @@ class GameController extends Controller {
 
     public function store(Request $request) {
         $this->validateGame($request);
+        $user = auth()->user();
 
-        Game::create([
+        $game = new Game([
             'description' => $request->description,
             'boardgame_id' => $request->boardgame_id,
-            'user_id' => auth()->user()->id,
+            'user_id' => $user->id,
             'closed' => false,
             'max_players' => $request->max_players,
             'players' => 1,
             'place' => $request->place,
         ]);
+
+        $game->save();
+        $game->users()->attach([$user->id]);      
 
         return redirect()->route('games.index');
     }

@@ -1,9 +1,10 @@
+<!DOCTYPE html>
 @extends('layouts.app')
 
 @section('content')
     <h2>Creación de una partida</h2>
     <div>
-        <form action="{{ route('users.store') }}" method="post">
+        <form action="{{ route('games.store') }}" method="post">
             @csrf
             <div class="form-group">
                 <label for="max_players">Jugadores máximos:</label>

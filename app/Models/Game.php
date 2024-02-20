@@ -12,6 +12,7 @@ class Game extends Model
     protected $fillable = [
         'description',
         'boardgame_id',
+        'user_id',
         'closed',
         'max_players',
         'players',
