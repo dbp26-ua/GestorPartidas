@@ -94,6 +94,13 @@ class GameController extends Controller {
         return redirect()->route('games.show', ['id' => $id]);
     }
 
+    public function delete($id) {
+        $game = Game::findOrFail($id);
+        $game->delete();
+
+        return redirect()->route('games.index');
+    }
+
     private function validateGameUpdate(Request $request) {
         $rules = [
             'description' => 'required|string|max:255',

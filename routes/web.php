@@ -31,6 +31,7 @@ Route::get('/games/{id}', [GameController::class, 'show'])->name('games.show');
 Route::get('/games/{id}/edit', [GameController::class, 'edit'])->name('games.edit');
 Route::put('/games/{id}/update', [GameController::class, 'update'])->name('games.update');
 Route::get('/games/{id}/remove/{user}', [GameController::class, 'remove'])->name('games.remove');
+Route::delete('/games/delete/{id}', [GameController::class, 'delete'])->name('games.delete');
 
 Route::get('/boardgames', [BoardgameController::class, 'index'])->name('boardgames.index');
 Route::get('/boardgames/add/{id}', [BoardgameController::class, 'add'])->name('boardgames.add');

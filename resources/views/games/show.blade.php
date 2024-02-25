@@ -43,6 +43,11 @@
             @endif
         @else
             <a class="btn btn-info" href="{{ route('games.edit', $game->id) }}">Gestionar</a>
+            <form action="{{ route('games.delete', $game->id) }}" method="post" style="display:inline">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro?')">Borrar partida</button>
+            </form>
         @endif
     </div>
 @endsection
