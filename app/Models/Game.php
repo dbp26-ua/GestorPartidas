@@ -12,6 +12,7 @@ class Game extends Model
     protected $fillable = [
         'description',
         'boardgame_id',
+        'board_id',
         'user_id',
         'closed',
         'max_players',
@@ -21,6 +22,10 @@ class Game extends Model
 
     public function boardgame() {
         return $this->belongsTo(Boardgame::class);
+    }
+
+    public function board() {
+        return $this->belongsTo(Board::class);
     }
 
     public function users() {

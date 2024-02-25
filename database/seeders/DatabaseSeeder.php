@@ -104,6 +104,7 @@ class DatabaseSeeder extends Seeder
         Game::create([
             'description' => "Partida para jugar al Monopoly",
             'boardgame_id' => 1,
+            'board_id' => 1,
             'user_id' => 6,
             'closed' => false,
             'max_players' => 5,

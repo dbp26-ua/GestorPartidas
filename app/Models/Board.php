@@ -18,4 +18,8 @@ class Board extends Model
     public function boardgame() {
         return $this->belongsTo(Boardgame::class);
     }
+
+    public function games() {
+        return $this->belongsToMany(Game::class);
+    }
 }

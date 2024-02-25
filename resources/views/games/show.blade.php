@@ -11,6 +11,8 @@
     <div>
         <p>Juego: {{ $game->boardgame->name }}</p>
 
+        <p>Tablero: {{ $game->board->name }}</p>
+
         <p>Descripción de la partida: {{ $game->description }}</p>
 
         <p>Jugadores: {{ $game->players }}/{{ $game->max_players }}</p>

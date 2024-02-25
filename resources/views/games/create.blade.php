@@ -30,7 +30,7 @@
                 <input type="text" name="description" id="description" class="form-control" value="{{ old('description') }}">
             </div>
 
-            <button type="submit" class="btn btn-success">Crear partida</button>
+            <button type="submit" class="btn btn-success">Seleccionar tablero</button>
         </form>
     </div>
 @endsection

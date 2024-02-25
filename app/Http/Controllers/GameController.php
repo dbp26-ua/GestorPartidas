@@ -38,6 +38,7 @@ class GameController extends Controller {
         $game = new Game([
             'description' => $request->description,
             'boardgame_id' => $request->boardgame_id,
+            'board_id' => 0,
             'user_id' => $user->id,
             'closed' => false,
             'max_players' => $request->max_players,
@@ -46,7 +47,20 @@ class GameController extends Controller {
         ]);
 
         $game->save();
-        $game->users()->attach([$user->id]);      
+        $game->users()->attach([$user->id]);
+        $boardgame = $request->boardgame_id;
+
+        $boards = DB::table('boards')->where('boardgame_id', '=', $boardgame)->get();
+
+        return view('games.createBoard', compact('boards', 'game'));
+    }
+
+    public function storeBoard(Request $request) {
+        $this->validateGameBoard($request);
+
+        $game = Game::findOrFail($request->game_id);
+        $game->board_id = $request->board_id;
+        $game->save();
 
         return redirect()->route('games.index');
     }
@@ -97,6 +111,14 @@ class GameController extends Controller {
             'boardgame_id' => 'required|numeric',
             'max_players' => 'required|numeric',
             'place' => 'required|string|max:100',
+        ];
+
+        $request->validate($rules);
+    }
+
+    private function validateGameBoard(Request $request) {
+        $rules = [
+            'board_id' => 'required|numeric',
         ];
 
         $request->validate($rules);

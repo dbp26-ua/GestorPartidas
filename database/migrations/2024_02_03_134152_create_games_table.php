@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('description');
             $table->foreignId('boardgame_id')->constrained('boardgames')->onDelete('cascade');
+            $table->foreignId('board_id')->constrained('board')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->boolean('closed');
             $table->integer('max_players');
