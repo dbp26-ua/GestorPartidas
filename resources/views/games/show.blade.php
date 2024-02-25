@@ -22,7 +22,11 @@
         <p>Jugadores:
             <ul>
                 @foreach($game->users as $user)
-                    <li>{{ $user->name }}</li>
+                    <li>{{ $user->name }} 
+                        @if($game->creator->id == Auth::user()->id && $user->id != $game->creator->id)
+                            <a class="btn btn-danger" href="{{ route('games.remove', [$game->id, $user->id]) }}">Eliminar</a>
+                        @endif
+                    </li>
                 @endforeach
             </ul>
         </p>
@@ -35,6 +39,8 @@
             @else
                 <a class="btn btn-info" href="{{ route('user.games.add', $game->id) }}">Unirse</a>
             @endif
+        @else
+            <a class="btn btn-info" href="{{ route('games.edit', $game->id) }}">Gestionar</a>
         @endif
     </div>
 @endsection

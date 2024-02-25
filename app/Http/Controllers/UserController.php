@@ -52,6 +52,8 @@ class UserController extends Controller {
 
             $game = Game::findOrFail($id);
             $game->players = $game->player + 1;
+
+            return redirect()->route('games.show', ['id' => $id]);
         } else {
             return redirect()->route('login');
         }
@@ -64,6 +66,8 @@ class UserController extends Controller {
 
             $game = Game::findOrFail($id);
             $game->players = $game->player - 1;
+
+            return redirect()->route('games.show', ['id' => $id]);
         } else {
             return redirect()->route('login');
         }

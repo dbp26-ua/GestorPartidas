@@ -51,6 +51,46 @@ class GameController extends Controller {
         return redirect()->route('games.index');
     }
 
+    public function edit($id) {
+        $game = Game::findOrFail($id);
+        return view('games.edit', compact('game'));
+    }
+
+    public function update(Request $request, $id) {
+        $this->validateGameUpdate($request);
+
+        try {
+            $game = Game::findOrFail($id);
+            $game->update($request->all());
+            $game->save();
+
+            return redirect()->route('games.show', ['id' => $id]);
+        } catch(Exception $exception) {
+            return redirect()->route('games.show', ['id' => $id]);
+        }
+    }
+
+    public function remove($gameId, $userId) {
+        $game = Game::findOrFail($gameId);
+        $game->users()->detach($userId);
+
+        $game->players = $game->players - 1;
+        $game->save();
+
+        return redirect()->route('games.show', ['id' => $id]);
+    }
+
+    private function validateGameUpdate(Request $request) {
+        $rules = [
+            'description' => 'required|string|max:255',
+            'max_players' => 'required|numeric',
+            'place' => 'required|string|max:100',
+            'closed' => 'required|numeric',
+        ];
+
+        $request->validate($rules);
+    }
+
     private function validateGame(Request $request) {
         $rules = [
             'description' => 'nullable|string|max:255',
