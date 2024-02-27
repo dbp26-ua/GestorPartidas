@@ -5,6 +5,7 @@ use App\Http\Controllers\GameController;
 use App\Http\Controllers\BoardgameController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BoardController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +43,9 @@ Route::get('/user/games', [UserController::class, 'games'])->name('user.games');
 Route::get('/user/boardgames', [UserController::class, 'boardgames'])->name('user.boardgames');
 Route::get('/user/games/add/{id}', [UserController::class, 'add'])->name('user.games.add');
 Route::get('/user/games/remove/{id}', [UserController::class, 'remove'])->name('user.games.remove');
+
+Route::delete('/comments/delete/{id}/{game}', [CommentController::class, 'delete'])->name('comments.delete');
+Route::post('/comments/store/{id}', [CommentController::class, 'store'])->name('comments.store');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

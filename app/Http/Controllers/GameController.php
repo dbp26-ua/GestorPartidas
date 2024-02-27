@@ -21,8 +21,9 @@ class GameController extends Controller {
 
     public function show($id) {
         $game = Game::findOrFail($id);
+        $comments = DB::table('comments')->where('game_id', '=', $id)->get();
 
-        return view('games.show', compact('game'));
+        return view('games.show', compact('game', 'comments'));
     }
 
     public function create() {

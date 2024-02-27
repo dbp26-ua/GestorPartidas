@@ -53,6 +53,10 @@ class UserController extends Controller {
             $game = Game::findOrFail($id);
             $game->players = $game->player + 1;
 
+            if($game->players >= $game->max_players) {
+                $game->closed = true;
+            }
+
             return redirect()->route('games.show', ['id' => $id]);
         } else {
             return redirect()->route('login');
@@ -61,13 +65,23 @@ class UserController extends Controller {
 
     public function remove($id) {
         if(Auth::check()) {
-            $user = Auth::user();
-            $user->games()->detach($id);
-
             $game = Game::findOrFail($id);
-            $game->players = $game->player - 1;
+            if(Auth::user()->id == $game->creator->id) {
+                 $game->delete();
 
-            return redirect()->route('games.show', ['id' => $id]);
+                 return redirect()->route('games.index');
+            } else {
+                $user = Auth::user();
+                $user->games()->detach($id);
+
+                $game->players = $game->player - 1;
+
+                if($game->players < $game->max_players) {
+                    $game->closed = false;
+                }
+                
+                return redirect()->route('games.show', ['id' => $id]);
+            }
         } else {
             return redirect()->route('login');
         }

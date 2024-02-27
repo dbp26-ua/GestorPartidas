@@ -15,13 +15,11 @@
 
         <p>Descripción de la partida: {{ $game->description }}</p>
 
-        <p>Jugadores: {{ $game->players }}/{{ $game->max_players }}</p>
-
         <p>Lugar de celebración: {{ $game->place }}</p>
 
         <p>Estado: {{ $game->closed ? "Cerrada" : "Abierta" }}</p>
 
-        <p>Jugadores:
+        <p>Jugadores: {{ $game->players }}/{{ $game->max_players }}
             <ul>
                 @foreach($game->users as $user)
                     <li>{{ $user->name }} 
@@ -35,13 +33,14 @@
     </div>
 
     <div>
-        @if($game->creator->id != Auth::user()->id)
-            @if(in_array(Auth::user()->id, $game->users->pluck('id')->toArray()))
-                <a class="btn btn-info" href="{{ route('user.games.remove', $game->id) }}">Salirse</a>
-            @else
+        @if(in_array(Auth::user()->id, $game->users->pluck('id')->toArray()))
+            <a class="btn btn-info" href="{{ route('user.games.remove', $game->id) }}" onclick="return confirm('¿Estás seguro?')">Salirse</a>
+        @else
+            @if($game->closed == false)
                 <a class="btn btn-info" href="{{ route('user.games.add', $game->id) }}">Unirse</a>
             @endif
-        @else
+        @endif
+        @if($game->creator->id == Auth::user()->id)
             <a class="btn btn-info" href="{{ route('games.edit', $game->id) }}">Gestionar</a>
             <form action="{{ route('games.delete', $game->id) }}" method="post" style="display:inline">
                 @csrf
@@ -49,5 +48,47 @@
                 <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro?')">Borrar partida</button>
             </form>
         @endif
-    </div>
+
+        <button type="button" class="btn btn-primary" onclick="toggleVisibility()">
+            Comentar
+        </button>
+
+        <form action="{{ route('comments.store', $game->id) }}" method="post" id="commentForm" hidden>
+            @csrf
+            <input type="text" name="text" id="text" class="form-control" placeholder="Escribe tu comentario...">
+            <button type="submit" class="btn btn-success">Añadir comentario</button>
+        </form>
+        @if($comments->count() > 0)
+            <p><h4>Comentarios</h4>
+                <ul>
+                    @foreach($comments as $comment)
+                        <li>
+                            <div>
+                                <p>{{ $comment->author }}
+                                    @if($game->creator->id == Auth::user()->id || $Auth::user()->id == $comment->user_id)
+                                        <form action="{{ route('comments.delete', [$comment->id, $game->id]) }}" method="post" style="display:inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro?')">Eliminar</button>
+                                        </form>
+                                    @endif
+                                </p>
+                                <p>{{ $comment->text }}</p>
+                            </div>
+                        </li>
+                    @endforeach
+                </ul>
+            </p>
+        @endif
 @endsection
+
+<script>
+    function toggleVisibility() {
+        var commentForm = document.getElementById("commentForm");
+        if(commentForm.hasAttribute("hidden")) {
+            commentForm.removeAttribute("hidden");
+        } else {
+            commentForm.setAttribute("hidden", 'true');
+        }
+    }
+</script>
