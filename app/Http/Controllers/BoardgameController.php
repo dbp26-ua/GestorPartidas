@@ -32,4 +32,12 @@ class BoardgameController extends Controller {
 
         return redirect()->route('boardgames.index');
     }
+
+    public function remove($id) {
+        $user = auth()->user();
+
+        $user->boardgames()->detach($id);
+
+        return redirect()->route('user.boardgames');
+    }
 }

@@ -35,6 +35,7 @@ Route::delete('/games/delete/{id}', [GameController::class, 'delete'])->name('ga
 
 Route::get('/boardgames', [BoardgameController::class, 'index'])->name('boardgames.index');
 Route::get('/boardgames/add/{id}', [BoardgameController::class, 'add'])->name('boardgames.add');
+Route::get('/boardgames/remove/{id}', [BoardgameController::class, 'remove'])->name('boardgames.remove');
 
 Route::get('/profile', [UserController::class, 'show'])->name('user.show');
 Route::get('/user/games', [UserController::class, 'games'])->name('user.games');

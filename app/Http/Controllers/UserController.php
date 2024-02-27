@@ -26,7 +26,7 @@ class UserController extends Controller {
     public function games() {
         if(Auth::check()) {
             $user = Auth::user();
-            $games = $user->games();
+            $games = $user->games;
 
             return view('users.games', compact('games'));
         } else {
@@ -37,7 +37,7 @@ class UserController extends Controller {
     public function boardgames() {
         if(Auth::check()) {
             $user = Auth::user();
-            $boardgames = $user->boardgames();
+            $boardgames = $user->boardgames;
 
             return view('users.boardgames', compact('boardgames'));
         } else {
