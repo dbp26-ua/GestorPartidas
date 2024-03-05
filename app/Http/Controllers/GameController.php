@@ -27,79 +27,113 @@ class GameController extends Controller {
     }
 
     public function create() {
-        $boardgames = Auth::user()->boardgames;
+        if(Auth::check()) {
+            $boardgames = Auth::user()->boardgames;
 
-        return view('games.create', compact('boardgames'));
+            return view('games.create', compact('boardgames'));
+        } else {
+            return redirect()->route('login');
+        }
     }
 
     public function store(Request $request) {
-        $this->validateGame($request);
-        $user = auth()->user();
+        if(Auth::check()) {
+            $this->validateGame($request);
+            $user = auth()->user();
 
-        $game = new Game([
-            'description' => $request->description,
-            'boardgame_id' => $request->boardgame_id,
-            'board_id' => 0,
-            'user_id' => $user->id,
-            'closed' => false,
-            'max_players' => $request->max_players,
-            'players' => 1,
-            'place' => $request->place,
-        ]);
+            $game = new Game([
+                'description' => $request->description,
+                'boardgame_id' => $request->boardgame_id,
+                'board_id' => 0,
+                'user_id' => $user->id,
+                'closed' => false,
+                'max_players' => $request->max_players,
+                'players' => 1,
+                'place' => $request->place,
+            ]);
 
-        $game->save();
-        $game->users()->attach([$user->id]);
-        $boardgame = $request->boardgame_id;
+            $game->save();
+            $game->users()->attach([$user->id]);
+            $boardgame = $request->boardgame_id;
 
-        $boards = DB::table('boards')->where('boardgame_id', '=', $boardgame)->get();
+            $boards = DB::table('boards')->where('boardgame_id', '=', $boardgame)->get();
 
-        return view('games.createBoard', compact('boards', 'game'));
+            return view('games.createBoard', compact('boards', 'game'));
+        } else {
+            return redirect()->route('login');
+        }
     }
 
     public function storeBoard(Request $request) {
-        $this->validateGameBoard($request);
+        if(Auth::check()) {
+            $game = Game::findOrFail($request->game_id);
+            $this->validateGameBoard($request);
 
-        $game = Game::findOrFail($request->game_id);
-        $game->board_id = $request->board_id;
-        $game->save();
+            $game->board_id = $request->board_id;
+            $game->save();
 
-        return redirect()->route('games.index');
+            return redirect()->route('games.index');
+        } else {
+            return redirect()->route('login');
+        }
     }
 
     public function edit($id) {
-        $game = Game::findOrFail($id);
-        return view('games.edit', compact('game'));
+        if(Auth::check()) {
+            $game = Game::findOrFail($id);
+            if(Auth::user()->id == $game->creator->id) {
+                return view('games.edit', compact('game'));
+            }
+        } else {
+            return redirect()->route('login');
+        }
     }
 
     public function update(Request $request, $id) {
-        $this->validateGameUpdate($request);
-
-        try {
+        if(Auth::check()) {
             $game = Game::findOrFail($id);
-            $game->update($request->all());
-            $game->save();
+            if(Auth::user()->id == $game->creator->id) {
+                $this->validateGameUpdate($request);
 
-            return redirect()->route('games.show', ['id' => $id]);
-        } catch(Exception $exception) {
-            return redirect()->route('games.show', ['id' => $id]);
+                try {
+                    $game->update($request->all());
+                    $game->save();
+
+                    return redirect()->route('games.show', ['id' => $id]);
+                } catch(Exception $exception) {
+                    return redirect()->route('games.show', ['id' => $id]);
+                }
+            }
+        } else {
+            return redirect()->route('login');
         }
     }
 
     public function remove($gameId, $userId) {
-        $game = Game::findOrFail($gameId);
-        $game->users()->detach($userId);
+        if(Auth::check()) {
+            $game = Game::findOrFail($gameId);
+            $game->users()->detach($userId);
 
-        $game->players = $game->players - 1;
-        $game->save();
+            $game->players = $game->players - 1;
+            $game->save();
 
-        return redirect()->route('games.show', ['id' => $id]);
+            return redirect()->route('games.show', ['id' => $id]);
+        } else {
+            return redirect()->route('login');
+        }
     }
 
     public function delete($id) {
-        $game = Game::findOrFail($id);
-        $game->delete();
+        if(Auth::check()) {
+            $game = Game::findOrFail($id);
+            if(Auth::user()->id == $game->creator->id) {
+                $game->delete();
 
-        return redirect()->route('games.index');
+                return redirect()->route('games.index');
+            }
+        } else {
+            return redirect()->route('login');
+        }
     }
 
     private function validateGameUpdate(Request $request) {

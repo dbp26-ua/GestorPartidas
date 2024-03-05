@@ -14,30 +14,46 @@ use Illuminate\Support\Facades\Log;
 class BoardgameController extends Controller {
 
     public function index() {
-        $boardgames = Boardgame::all();
+        if(Auth::check()) {
+            $boardgames = Boardgame::all();
 
-        return view('boardgames.index', compact('boardgames'));
+            return view('boardgames.index', compact('boardgames'));
+        } else {
+            return redirect()->route('login');
+        }
     }
 
     public function show($id) {
-        $boardgame = Boardgame::findOrFail($id);
+        if(Auth::check()) {
+            $boardgame = Boardgame::findOrFail($id);
 
-        return view('boardgames.show', compact('boardgame'));
+            return view('boardgames.show', compact('boardgame'));
+        } else {
+            return redirect()->route('login');
+        }
     }
 
     public function add($id) {
-        $user = auth()->user();
+        if(Auth::check()) {
+            $user = auth()->user();
 
-        $user->boardgames()->syncWithoutDetaching([$id]);
+            $user->boardgames()->syncWithoutDetaching([$id]);
 
-        return redirect()->route('boardgames.index');
+            return redirect()->route('boardgames.index');
+        } else {
+            return redirect()->route('login');
+        }
     }
 
     public function remove($id) {
-        $user = auth()->user();
+        if(Auth::check()) {
+            $user = auth()->user();
 
-        $user->boardgames()->detach($id);
-
-        return redirect()->route('user.boardgames');
+            $user->boardgames()->detach($id);
+    
+            return redirect()->route('user.boardgames');
+        } else {
+            return redirect()->route('login');
+        }
     }
 }

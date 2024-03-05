@@ -89,41 +89,49 @@ class UserController extends Controller {
     }
 
     public function edit() {
-        $user = Auth::user();
+        if(Auth::check()) {
+            $user = Auth::user();
 
-        return view('users.edit', compact('user'));
+            return view('users.edit', compact('user'));
+        } else {
+            return redirect()->route('login');
+        }
     }
 
     public function update(Request $request) {
-        $this->validateUser($request);
+        if(Auth::check()) {
+            $this->validateUser($request);
 
-        $user = Auth::user();
-
-        if($request->password != null && $request->repeatPassword != null) {
-            if($request->password == $request->repeatPassword) {
-                $user->password = Hash::make($request->password);
-            } else {
-                return redirect()->back()->withErrors(['msg' => 'Las contraseñas no coinciden.']);
+            $user = Auth::user();
+    
+            if($request->password != null && $request->repeatPassword != null) {
+                if($request->password == $request->repeatPassword) {
+                    $user->password = Hash::make($request->password);
+                } else {
+                    return redirect()->back()->withErrors(['msg' => 'Las contraseñas no coinciden.']);
+                }
             }
+    
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->phone = $request->phone;
+            $user->country = $request->country;
+            $user->city = $request->city;
+            $user->zip_code = $request->zip_code;
+    
+            if($request->hasFile('photo')) {
+                $photo = $request->file('photo');
+                $photoName = $request->id.".".$photo->getClientOriginalExtension();
+                Image::make($photo)->resize(30, 30)->save(public_path('/userPhotos/'.$photoName));
+    
+                $user->photo = "userPhotos/".$photoName;
+            }
+            
+            $user->save();
+            return redirect()->route('user.show');
+        } else {
+            return redirect()->route('login');
         }
-
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->phone = $request->phone;
-        $user->country = $request->country;
-        $user->city = $request->city;
-        $user->zip_code = $request->zip_code;
-
-        if($request->hasFile('photo')) {
-            $photo = $request->file('photo');
-            $photoName = $request->id.".".$photo->getClientOriginalExtension();
-            Image::make($photo)->resize(30, 30)->save(public_path('/userPhotos/'.$photoName));
-
-            $user->photo = "userPhotos/".$photoName;
-        }
-        
-        $user->save();
-        return redirect()->route('user.show');
     }
 
     private function validateUser(Request $request) {
