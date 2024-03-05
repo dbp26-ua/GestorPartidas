@@ -27,9 +27,9 @@
                             <td>{{ $game->closed ? "Cerrado" : "Abierto" }}</td>
                             <td>
                                 <a class="btn btn-info" href="{{ route('games.show', $game->id) }}">Ver detalles</a>
-                                <!-- @if($game->creator->id != Auth::user()->id)
+                                @if($game->creator->id != Auth::user()->id)
                                     <a class="btn btn-danger" href="{{ route('user.games.remove', $game->id) }}">Salirse</a>
-                                @endif -->
+                                @endif
                             </td>
                         </tr>
                     @endforeach

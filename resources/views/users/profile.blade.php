@@ -11,6 +11,12 @@
 
     <p>Población: {{ $user->city }}, {{ $user->zip_code }}</p>
 
-    <a class="btn btn-info" href="{{ route('user.games') }}">Listado de partidas</a>
-    <a class="btn btn-info" href="{{ route('user.boardgames') }}">Listado de juegos</a>
+    <p>
+        <a class="btn btn-success" href="{{ route('user.edit') }}">Editar los datos</a>
+    </p>
+
+    <p>
+        <a class="btn btn-info" href="{{ route('user.games') }}">Listado de partidas</a>
+        <a class="btn btn-info" href="{{ route('user.boardgames') }}">Listado de juegos</a>
+    </p>
 @endsection

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('country');
             $table->string('city');
             $table->string('zip_code');
-            $table->string('photo')->nullable()->default('public/images/user.png');
+            $table->string('photo')->nullable()->default('public/images/defaultUser.png');
             $table->boolean('admin')->default(false);
             $table->rememberToken();
             $table->timestamps();

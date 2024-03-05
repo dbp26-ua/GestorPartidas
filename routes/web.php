@@ -41,6 +41,8 @@ Route::get('/boardgames/remove/{id}', [BoardgameController::class, 'remove'])->n
 Route::get('/profile', [UserController::class, 'show'])->name('user.show');
 Route::get('/user/games', [UserController::class, 'games'])->name('user.games');
 Route::get('/user/boardgames', [UserController::class, 'boardgames'])->name('user.boardgames');
+Route::get('/profile/edit', [UserController::class, 'edit'])->name('user.edit');
+Route::put('/profile/update', [UserController::class, 'update'])->name('user.update');
 Route::get('/user/games/add/{id}', [UserController::class, 'add'])->name('user.games.add');
 Route::get('/user/games/remove/{id}', [UserController::class, 'remove'])->name('user.games.remove');
 

@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
             'country' => 'España',
             'city' => 'Alicante',
             'zip_code' => '12345',
-            'photo' => 'images/admin.png',
+            'photo' => 'images/defaultUser.png',
             'admin' => true,
         ]);
 

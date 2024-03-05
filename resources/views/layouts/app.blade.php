@@ -62,7 +62,7 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <img src="{{ asset(Auth::user()->photo) }}" alt="Imagen de perfil" class="rounded-circle" width="30" height="30">
+                                    <img src="{{ asset(Auth::user()->photo) }}" alt="Imagen de perfil" class="image rounded-circle" width="30" height="30">
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
