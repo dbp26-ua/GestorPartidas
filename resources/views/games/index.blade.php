@@ -3,6 +3,38 @@
 
 @section('content')
     <div>
+        <h3>Filtros</h3>
+        <form action="{{ route('games.filter') }}" method="post">
+            @csrf
+            <div class="form-group">
+                <label for="boardgame_id">Juego:</label>
+                <select name="boardgame_id" id="boardgame_id" class="form-control">
+                    <option value="-1"></option>
+                    @foreach($boardgames as $boardgame)
+                        <option value="{{ $boardgame->id }}" {{ $boardgame_id == $boardgame->id ? 'selected' : '' }}>{{ $boardgame->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="creator">Líder:</label>
+                <input type="text" name="creator" id="creator" class="form-control" value="{{ $creator }}">
+            </div>
+
+            <div class="form-group">
+                <label for="closed">Estado:</label>
+                <select name="closed" id="closed" class="form-control">
+                    <option value="-1" {{ $closed == -1 ? 'selected' : '' }}></option>
+                    <option value="1" {{ $closed == 1 ? 'selected' : '' }}>Cerrada</option>
+                    <option value="0" {{ $closed == 0 ? 'selected' : '' }}>Abierta</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-success">Filtrar</button>
+        </form>
+    </div>
+
+    <div>
         <div class="col">
             <h2>Listado de partidas</h2>
         </div>

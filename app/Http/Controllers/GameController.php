@@ -15,8 +15,12 @@ class GameController extends Controller {
     
     public function index() {
         $games = Game::all();
+        $boardgames = Boardgame::all();
+        $boardgame_id = -1;
+        $creator = "";
+        $closed = -1;
 
-        return view('games.index', compact('games'));
+        return view('games.index', compact('games', 'boardgames', 'boardgame_id', 'creator', 'closed'));
     }
 
     public function show($id) {
@@ -134,6 +138,54 @@ class GameController extends Controller {
         } else {
             return redirect()->route('login');
         }
+    }
+
+    public function filter(Request $request) {
+        $games = Game::all();
+        $boardgames = Boardgame::all();
+
+        $filteredBoardgames = $games;
+        $filteredCreator = $filteredBoardgames;
+        $filteredStatus = $filteredCreator;
+
+        if($request->boardgame_id != -1) {
+            $filteredBoardgames = $games->filter(function ($game) use ($request) {
+                if($request->boardgame_id == $game->boardgame->id) {
+                    return true;
+                }
+    
+                return false;
+            })->values();
+            $games = $filteredBoardgames;
+        }
+
+        if($request->creator != null && $request->creator != "") {
+            $filteredCreator = $filteredBoardgames->filter(function ($game) use ($request) {
+                if($request->creator == $game->creator->name) {
+                    return true;
+                }
+    
+                return false;
+            })->values();
+            $games = $filteredCreator;
+        }
+
+        if($request->closed != -1) {
+            $filteredStatus = $filteredCreator->filter(function ($game) use ($request) {
+                if($request->closed == $game->closed) {
+                    return true;
+                }
+    
+                return false;
+            })->values();
+            $games = $filteredStatus;
+        }
+
+        $boardgame_id = $request->boardgame_id;
+        $creator = $request->creator;
+        $closed = $request->closed;
+
+        return view('games.index', compact('games', 'boardgames', 'boardgame_id', 'creator', 'closed'));
     }
 
     private function validateGameUpdate(Request $request) {
