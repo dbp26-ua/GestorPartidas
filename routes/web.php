@@ -7,6 +7,10 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\BoardController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserAdminController;
+use App\Http\Controllers\GameAdminController;
+use App\Http\Controllers\BoardgameAdminController;
+use App\Http\Controllers\BoardAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +32,7 @@ Auth::routes();
 Route::prefix('/games')->group(function() {
     Route::get('/', [GameController::class, 'index'])->name('games.index');
     Route::get('/create', [GameController::class, 'create'])->name('games.create');
-    Route::post('/store', [GameController::class, 'store'])->name('games.store');
+    Route::post('/', [GameController::class, 'store'])->name('games.store');
     Route::post('/storeBoard', [GameController::class, 'storeBoard'])->name('games.storeBoard');
     Route::get('/{id}', [GameController::class, 'show'])->name('games.show');
     Route::get('/{id}/edit', [GameController::class, 'edit'])->name('games.edit');
@@ -68,7 +72,7 @@ Route::prefix('/admin/users')->group(function() {
     Route::get('/', [UserAdminController::class, 'index'])->name('admin.users.index');
     Route::get('/create', [UserAdminController::class, 'create'])->name('admin.users.create');
     Route::post('/', [UserAdminController::class, 'store'])->name('admin.users.store');
-    Route::get('/edit', [UserAdminController::class, 'edit'])->name('admin.users.edit');
+    Route::get('/{id}/edit', [UserAdminController::class, 'edit'])->name('admin.users.edit');
     Route::put('/{id}', [UserAdminController::class, 'update'])->name('admin.users.update');
     Route::delete('/{id}', [UserAdminController::class, 'delete'])->name('admin.users.delete');
 });
@@ -77,7 +81,8 @@ Route::prefix('/admin/games')->group(function() {
     Route::get('/', [GameAdminController::class, 'index'])->name('admin.games.index');
     Route::get('/create', [GameAdminController::class, 'create'])->name('admin.games.create');
     Route::post('/', [GameAdminController::class, 'store'])->name('admin.games.store');
-    Route::get('/edit', [GameAdminController::class, 'edit'])->name('admin.games.edit');
+    Route::post('/{id}', [GameAdminController::class, 'storeBoard'])->name('admin.games.storeBoard');
+    Route::get('/{id}/edit', [GameAdminController::class, 'edit'])->name('admin.games.edit');
     Route::put('/{id}', [GameAdminController::class, 'update'])->name('admin.games.update');
     Route::delete('/{id}', [GameAdminController::class, 'delete'])->name('admin.games.delete');
 });
@@ -86,7 +91,7 @@ Route::prefix('/admin/boardgames')->group(function() {
     Route::get('/', [BoardgameAdminController::class, 'index'])->name('admin.boardgames.index');
     Route::get('/create', [BoardgameAdminController::class, 'create'])->name('admin.boardgames.create');
     Route::post('/', [BoardgameAdminController::class, 'store'])->name('admin.boardgames.store');
-    Route::get('/edit', [BoardgameAdminController::class, 'edit'])->name('admin.boardgames.edit');
+    Route::get('/{id}/edit', [BoardgameAdminController::class, 'edit'])->name('admin.boardgames.edit');
     Route::put('/{id}', [BoardgameAdminController::class, 'update'])->name('admin.boardgames.update');
     Route::delete('/{id}', [BoardgameAdminController::class, 'delete'])->name('admin.boardgames.delete');
 });
@@ -95,7 +100,7 @@ Route::prefix('/admin/boards')->group(function() {
     Route::get('/', [BoardAdminController::class, 'index'])->name('admin.boards.index');
     Route::get('/create', [BoardAdminController::class, 'create'])->name('admin.boards.create');
     Route::post('/', [BoardAdminController::class, 'store'])->name('admin.boards.store');
-    Route::get('/edit', [BoardAdminController::class, 'edit'])->name('admin.boards.edit');
+    Route::get('/{id}/edit', [BoardAdminController::class, 'edit'])->name('admin.boards.edit');
     Route::put('/{id}', [BoardAdminController::class, 'update'])->name('admin.boards.update');
     Route::delete('/{id}', [BoardAdminController::class, 'delete'])->name('admin.boards.delete');
 });
