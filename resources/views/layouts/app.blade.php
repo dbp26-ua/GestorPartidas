@@ -41,6 +41,12 @@
                                     <a class="nav-link" href="{{ route('boardgames.index') }}">Juegos</a>
                                 </li>
                             @endif()
+
+                            @if(Auth::user()->admin) 
+                                <li class="navbar-nav">
+                                    <a class="nav-link" href="{{ route('admin') }}">Administración</a>
+                                </li>
+                            @endif
                         @endauth
                     </ul>
 
