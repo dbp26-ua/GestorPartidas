@@ -54,6 +54,7 @@ class GameController extends Controller {
                 'max_players' => $request->max_players,
                 'players' => 1,
                 'place' => $request->place,
+                'address' => $request->address,
             ]);
 
             $game->save();
@@ -193,6 +194,7 @@ class GameController extends Controller {
             'description' => 'required|string|max:255',
             'max_players' => 'required|numeric',
             'place' => 'required|string|max:100',
+            'address' => 'required|string|max:255',
             'closed' => 'required|numeric',
         ];
 
@@ -205,6 +207,7 @@ class GameController extends Controller {
             'boardgame_id' => 'required|numeric',
             'max_players' => 'required|numeric',
             'place' => 'required|string|max:100',
+            'address' => 'required|string|max:255',
         ];
 
         $request->validate($rules);

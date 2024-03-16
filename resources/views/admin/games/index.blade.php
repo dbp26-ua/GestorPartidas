@@ -33,7 +33,7 @@
                             <td>{{ $game->creator->name }}</td>
                             <td>{{ $game->closed ? "Sí" : "No" }}</td>
                             <td>{{ $game->players }}/{{ $game->max_players }}</td>
-                            <td>{{ $game->place }}</td>
+                            <td>{{ $game->address }}, {{ $game->place }}</td>
                             <td>
                                 <a class="btn btn-info" href="{{ route('admin.games.edit', $game->id) }}">Editar</a>
                                 <form action="{{ route('admin.games.delete', $game->id) }}" method="post" style="display:inline">

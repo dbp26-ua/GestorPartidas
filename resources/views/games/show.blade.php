@@ -15,7 +15,7 @@
 
         <p>Descripción de la partida: {{ $game->description }}</p>
 
-        <p>Lugar de celebración: {{ $game->place }}</p>
+        <p>Lugar de celebración: {{ $game->address }}, {{ $game->place }}</p>
 
         <p>Estado: {{ $game->closed ? "Cerrada" : "Abierta" }}</p>
 
@@ -47,6 +47,7 @@
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro?')">Borrar partida</button>
             </form>
+            <a href="{{ route('games.transferForm', $game->id) }}" class="btn btn-info">Transferir liderazgo</a>
         @endif
 
         <button type="button" class="btn btn-primary" onclick="toggleVisibility()">

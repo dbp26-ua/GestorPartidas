@@ -53,6 +53,7 @@ class GameAdminController extends Controller {
                     'max_players' => $request->max_players,
                     'players' => 1,
                     'place' => $request->place,
+                    'address' => $request->address,
                 ]);
 
                 $game->save();
@@ -132,6 +133,7 @@ class GameAdminController extends Controller {
             'user_id' => 'required|numeric',
             'max_players' => 'required|numeric',
             'place' => 'required|string',
+            'address' => 'required|string',
         ];
 
         $request->validate($rules);
@@ -151,6 +153,7 @@ class GameAdminController extends Controller {
             'closed' => 'required|boolean',
             'max_players' => 'required|numeric',
             'place' => 'required|string',
+            'address' => 'required|string',
         ];
 
         $request->validate($rules);

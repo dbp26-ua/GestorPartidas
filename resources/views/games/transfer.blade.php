@@ -2,9 +2,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <div>
+<div>
         <div class="col">
-            <h2>Biblioteca</h2>
+            <h2>Transferencia de liderazgo</h2>
         </div>
     </div>
 
@@ -14,15 +14,13 @@
                 <thead>
                     <tr>
                         <th>Nombre</th>
-                        <th>Descripción</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($boardgames as $boardgame)
+                    @foreach($users as $user)
                         <tr>
-                            <td>{{ $boardgame->name }}</td>
-                            <td>{{ $boardgame->description }}</td>
+                            <td>{{ $user->name }}</td>
                             <td>
                                 <a class="btn btn-danger" href="{{ route('boardgames.remove', $boardgame->id) }}">Eliminar</a>
                                 <a class="btn btn-success" href="{{ route('boardgames.boards', $boardgame->id) }}">Tableros</a>
@@ -33,5 +31,4 @@
             </table>
         </div>
     </div>
-
 @endsection

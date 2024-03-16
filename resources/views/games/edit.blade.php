@@ -29,6 +29,11 @@
             </div>
 
             <div class="form-group">
+                <label for="address">Dirección:</label>
+                <input type="text" name="address" id="address" class="form-group" value="{{ $game->address }}" required>
+            </div>
+
+            <div class="form-group">
                 <label for="closed">Cerrada:</label>
                 <select name="closed" id="closed" class="form-group" required>
                     <option value="1" {{ $game->closed ? 'selected' : '' }}>Cerrada</option>

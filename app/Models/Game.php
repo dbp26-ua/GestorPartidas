@@ -17,7 +17,8 @@ class Game extends Model
         'closed',
         'max_players',
         'players',
-        'place'
+        'place',
+        'address'
     ];
 
     public function boardgame() {

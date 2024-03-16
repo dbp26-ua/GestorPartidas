@@ -17,6 +17,11 @@
             </div>
 
             <div class="form-group">
+                <label for="address">Dirección:</label>
+                <input type="text" name="address" id="address" class="form-control" required>
+            </div>
+
+            <div class="form-group">
                 <label for="boardgame_id">Juego:</label>
                 <select name="boardgame_id" id="boardgame_id" class="form-control" required>
                     @foreach($boardgames as $boardgame)

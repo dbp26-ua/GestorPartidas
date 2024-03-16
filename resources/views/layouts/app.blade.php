@@ -76,7 +76,7 @@
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                                     <a class="dropdown-item" href="{{ route('user.show') }}">Ver perfil</a>
                                     <a class="dropdown-item" href="{{ route('user.games') }}">Ver partidas</a>
-                                    <a class="dropdown-item" href="{{ route('user.boardgames') }}">Ver juegos</a>
+                                    <a class="dropdown-item" href="{{ route('user.boardgames') }}">Biblioteca</a>
                                     <div class="dropdown-divider"></div>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST">
                                         @csrf

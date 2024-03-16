@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('max_players');
             $table->integer('players');
             $table->string('place');
+            $table->string('address');
             $table->timestamps();
         });
     }

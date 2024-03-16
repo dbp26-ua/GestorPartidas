@@ -119,6 +119,7 @@ class DatabaseSeeder extends Seeder
             'max_players' => 5,
             'players' => 1,
             'place' => 'Alicante',
+            'address' => 'Dirección de prueba',
         ]);
 
         $game = Game::findOrFail(1);
