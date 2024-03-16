@@ -24,7 +24,9 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container-fluid">
-                <a class="navbar-brand" href="{{ url('/home') }}">eBoard</a>
+                <a class="navbar-brand" href="#">
+                    <img src="{{ url('images/logo.png') }}" alt="eBoard" class="image" width="30" height="30">
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -68,7 +70,7 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <img src="{{ asset(Auth::user()->photo) }}" alt="Imagen de perfil" class="image rounded-circle" width="30" height="30">
+                                    <img src="{{ url(Auth::user()->photo) }}" alt="Imagen de perfil" class="image rounded-circle" width="30" height="30">
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">

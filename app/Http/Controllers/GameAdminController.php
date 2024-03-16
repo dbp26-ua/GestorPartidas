@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Game;
 use App\Models\User;
 use App\Models\Boardgame;
-use App\Models\Boards;
+use App\Models\Board;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;

@@ -45,6 +45,7 @@ class BoardAdminController extends Controller {
                     'name' => $request->name,
                     'description' => $request->description,
                     'boardgame_id' => $request->boardgame_id,
+                    'valid' => true,
                 ]);
 
                 $board->save();
@@ -89,6 +90,20 @@ class BoardAdminController extends Controller {
             if(Auth::user()->admin) {
                 $board = Board::findOrFail($id);
                 $board->delete();
+
+                return redirect()->route('admin.boards.index');
+            }
+        } else {
+            return redirect()->route('login');
+        }
+    }
+
+    public function makeValid($id) {
+        if(Auth::check()) {
+            if(Auth::user()->admin) {
+                $board = Board::findOrFail($id);
+                $board->valid = true;
+                $board->save();
 
                 return redirect()->route('admin.boards.index');
             }

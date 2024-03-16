@@ -46,6 +46,14 @@ Route::prefix('/boardgames')->group(function() {
     Route::get('/', [BoardgameController::class, 'index'])->name('boardgames.index');
     Route::get('/add/{id}', [BoardgameController::class, 'add'])->name('boardgames.add');
     Route::get('/remove/{id}', [BoardgameController::class, 'remove'])->name('boardgames.remove');
+    Route::get('/{id}/boards', [BoardgameController::class, 'boards'])->name('boardgames.boards');
+    Route::get('/create', [BoardgameController::class, 'create'])->name('boardgames.create');
+    Route::post('/store', [BoardgameController::class, 'store'])->name('boardgames.store');
+});
+
+Route::prefix('/boards')->group(function() {
+    Route::get('/create/{id}', [BoardController::class, 'create'])->name('boards.create');
+    Route::post('/store', [BoardController::class, 'store'])->name('boards.store');
 });
 
 Route::prefix('/profile')->group(function() {
@@ -94,6 +102,7 @@ Route::prefix('/admin/boardgames')->group(function() {
     Route::get('/{id}/edit', [BoardgameAdminController::class, 'edit'])->name('admin.boardgames.edit');
     Route::put('/{id}', [BoardgameAdminController::class, 'update'])->name('admin.boardgames.update');
     Route::delete('/{id}', [BoardgameAdminController::class, 'delete'])->name('admin.boardgames.delete');
+    Route::get('/{id}/validate', [BoardgameAdminController::class, 'makeValid'])->name('admin.boardgames.validate');
 });
 
 Route::prefix('/admin/boards')->group(function() {
@@ -103,6 +112,7 @@ Route::prefix('/admin/boards')->group(function() {
     Route::get('/{id}/edit', [BoardAdminController::class, 'edit'])->name('admin.boards.edit');
     Route::put('/{id}', [BoardAdminController::class, 'update'])->name('admin.boards.update');
     Route::delete('/{id}', [BoardAdminController::class, 'delete'])->name('admin.boards.delete');
+    Route::get('/{id}/validate', [BoardAdminController::class, 'makeValid'])->name('admin.boards.validate');
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

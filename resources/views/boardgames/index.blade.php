@@ -37,6 +37,8 @@
 </style>
 
 <div>
+    <a href="{{ route('boardgames.create') }}" class="btn btn-info">Solicitar juego</a>
+
     @foreach($boardgames as $boardgame)
         <div class="container">
             <img class="image" src="{{ asset($boardgame->photo) }}" alt="{{ $boardgame->description }}">
@@ -46,6 +48,7 @@
             </div>
             <div class="button-overlay">
                 <a class="btn btn-info" href="{{ route('boardgames.add', $boardgame->id) }}">Añadir</a>
+                <a class="btn btn-success" href="{{ route('boardgames.boards', $boardgame->id) }}">Tableros</a>
             </div>
         </div>
     @endforeach

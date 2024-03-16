@@ -48,12 +48,14 @@ class DatabaseSeeder extends Seeder
             'name' => 'Monopoly',
             'description' => 'Juego de gestión relativamente sencillo.',
             'photo' => 'images/juego.png',
+            'valid' => true,
         ]);
 
         Board::create([
             'name' => 'España',
             'boardgame_id' => 1,
             'description' => 'Tablero del Monopoly inspirado en España.',
+            'valid' => true,
         ]);
 
         // Segundo juego
@@ -61,12 +63,14 @@ class DatabaseSeeder extends Seeder
             'name' => 'Parchís',
             'description' => 'Juego con casillas y dados.',
             'photo' => 'images/juego2.png',
+            'valid' => true,
         ]);
 
         Board::create([
             'name' => 'Clásico',
             'boardgame_id' => 2,
             'description' => 'Tablero del Parchís clásico.',
+            'valid' => true,
         ]);
 
         // Tercer juego
@@ -74,18 +78,21 @@ class DatabaseSeeder extends Seeder
             'name' => 'Cluedo',
             'description' => 'Juego para sentirte como un verdadero detective.',
             'photo' => 'images/juego3.png',
+            'valid' => true,
         ]);
 
         Board::create([
             'name' => 'Mansión',
             'boardgame_id' => 3,
             'description' => 'Tablero del Cluedo inspirado en una mansión.',
+            'valid' => true,
         ]);
 
         Board::create([
             'name' => 'Hotel',
             'boardgame_id' => 3,
             'description' => 'Tablero del Cluedo inspirado en un hotel.',
+            'valid' => true,
         ]);
 
         // Cuarto juego
@@ -93,12 +100,14 @@ class DatabaseSeeder extends Seeder
             'name' => 'Ajedrez',
             'description' => 'Juego de una sorprendente complejidad estratégica.',
             'photo' => 'images/juego4.png',
+            'valid' => true,
         ]);
 
         Board::create([
             'name' => 'Clásico',
             'boardgame_id' => 4,
             'description' => 'Tablero del Ajedrez clásico.',
+            'valid' => true,
         ]);
 
         Game::create([
@@ -111,6 +120,9 @@ class DatabaseSeeder extends Seeder
             'players' => 1,
             'place' => 'Alicante',
         ]);
+
+        $game = Game::findOrFail(1);
+        $game->users()->syncWithoutDetaching([6]);
 
         Comment::create([
             'author' => 'Usuario de ejemplo',

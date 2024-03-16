@@ -16,6 +16,7 @@
                         <th>Id</th>
                         <th>Nombre</th>
                         <th>Descripción</th>
+                        <th>Validado</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,8 +25,12 @@
                             <td>{{ $boardgame->id }}</td>
                             <td>{{ $boardgame->name }}</td>
                             <td>{{ $boardgame->description }}</td>
+                            <td>{{ $boardgame->valid ? 'Sí' : 'No' }}</td>
                             <td>
                                 <a class="btn btn-info" href="{{ route('admin.boardgames.edit', $boardgame->id) }}">Editar</a>
+                                @if(!$boardgame->valid)
+                                    <a href="{{ route('admin.boardgames.validate', $boardgame->id) }}" class="btn btn-success">Validar</a>
+                                @endif
                                 <form action="{{ route('admin.boardgames.delete', $boardgame->id) }}" method="post" style="display:inline">
                                     @csrf
                                     @method('DELETE')

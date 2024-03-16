@@ -41,6 +41,7 @@ class BoardgameAdminController extends Controller {
                 $boardgame = new Boardgame([
                     'name' => $request->name,
                     'description' => $request->description,
+                    'valid' => true,
                 ]);
 
                 $boardgame->save();
@@ -85,6 +86,20 @@ class BoardgameAdminController extends Controller {
             if(Auth::user()->admin) {
                 $boardgame = Boardgame::findOrFail($id);
                 $boardgame->delete();
+
+                return redirect()->route('admin.boardgames.index');
+            }
+        } else {
+            return redirect()->route('login');
+        }
+    }
+
+    public function makeValid($id) {
+        if(Auth::check()) {
+            if(Auth::user()->admin) {
+                $boardgame = Boardgame::findOrFail($id);
+                $boardgame->valid = true;
+                $boardgame->save();
 
                 return redirect()->route('admin.boardgames.index');
             }

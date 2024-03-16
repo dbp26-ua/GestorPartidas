@@ -15,7 +15,7 @@ class GameController extends Controller {
     
     public function index() {
         $games = Game::all();
-        $boardgames = Boardgame::all();
+        $boardgames = DB::table('boardgames')->where('valid', '=', true)->get();
         $boardgame_id = -1;
         $creator = "";
         $closed = -1;
@@ -60,7 +60,7 @@ class GameController extends Controller {
             $game->users()->attach([$user->id]);
             $boardgame = $request->boardgame_id;
 
-            $boards = DB::table('boards')->where('boardgame_id', '=', $boardgame)->get();
+            $boards = DB::table('boards')->where('boardgame_id', '=', $boardgame)->where('valid', '=', true)->get();
 
             return view('games.createBoard', compact('boards', 'game'));
         } else {

@@ -15,7 +15,7 @@ class BoardgameController extends Controller {
 
     public function index() {
         if(Auth::check()) {
-            $boardgames = Boardgame::all();
+            $boardgames = DB::table('boardgames')->where('valid', '=', true)->get();
 
             return view('boardgames.index', compact('boardgames'));
         } else {
@@ -27,7 +27,11 @@ class BoardgameController extends Controller {
         if(Auth::check()) {
             $boardgame = Boardgame::findOrFail($id);
 
-            return view('boardgames.show', compact('boardgame'));
+            if($boardgame->valid) {
+                return view('boardgames.show', compact('boardgame'));
+            } else {
+                return redirect()->route('boardgames.index');
+            }
         } else {
             return redirect()->route('login');
         }
@@ -35,10 +39,14 @@ class BoardgameController extends Controller {
 
     public function add($id) {
         if(Auth::check()) {
-            $user = auth()->user();
+            $boardgame = Boardgame::findOrFail($id);
 
-            $user->boardgames()->syncWithoutDetaching([$id]);
+            if($boardgame->valid) {
+                $user = auth()->user();
 
+                $user->boardgames()->syncWithoutDetaching([$id]);
+            }
+            
             return redirect()->route('boardgames.index');
         } else {
             return redirect()->route('login');
@@ -47,13 +55,71 @@ class BoardgameController extends Controller {
 
     public function remove($id) {
         if(Auth::check()) {
-            $user = auth()->user();
+            $boardgame = Board::findOrFail($id);
 
-            $user->boardgames()->detach($id);
+            if($boardgame->valid) {
+                $user = auth()->user();
+
+                $user->boardgames()->detach($id);
+            }
     
             return redirect()->route('user.boardgames');
         } else {
             return redirect()->route('login');
         }
+    }
+
+    public function boards($id) {
+        if(Auth::check()) {
+            $boardgame = Boardgame::findOrFail($id);
+
+            if($boardgame->valid) {
+                $boards = DB::table('boards')->where('boardgame_id', '=', $id)->where('valid', '=', true)->get();
+
+                return view('boardgames.boards', compact('boards', 'boardgame'));
+            } else {
+                return redirect()->route('boardgames.index');
+            }
+        } else {
+            return redirect()->route('login');
+        }
+    }
+
+    public function create() {
+        if(Auth::check()) {
+            return view('boardgames.create');
+        } else {
+            return redirect()->route('login');
+        }
+    }
+
+    public function store(Request $request) {
+        if(Auth::check()) {
+            $this->validateBoardgame($request);
+
+            $boardgame = new Boardgame([
+                'name' => $request->name,
+                'description' => $request->description,
+                'valid' => false,
+            ]);
+
+            $boardgame->save();
+
+            $user = Auth::user();
+            $user->boardgames()->syncWithoutDetaching([$boardgame->id]);
+
+            return redirect()->route('user.boardgames');
+        } else {
+            return redirect()->route('login');
+        }
+    }
+
+    private function validateBoardgame(Request $request) {
+        $rules = [
+            'name' => 'required|string',
+            'description' => 'required|string',
+        ];
+
+        $request->validate($rules);
     }
 }
