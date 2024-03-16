@@ -66,7 +66,7 @@
                         <li>
                             <div>
                                 <p>{{ $comment->author }}
-                                    @if($game->creator->id == Auth::user()->id || $Auth::user()->id == $comment->user_id)
+                                    @if($game->creator->id == Auth::user()->id || Auth::user()->id == $comment->user_id)
                                         <form action="{{ route('comments.delete', [$comment->id, $game->id]) }}" method="post" style="display:inline">
                                             @csrf
                                             @method('DELETE')

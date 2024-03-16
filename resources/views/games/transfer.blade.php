@@ -22,8 +22,9 @@
                         <tr>
                             <td>{{ $user->name }}</td>
                             <td>
-                                <a class="btn btn-danger" href="{{ route('boardgames.remove', $boardgame->id) }}">Eliminar</a>
-                                <a class="btn btn-success" href="{{ route('boardgames.boards', $boardgame->id) }}">Tableros</a>
+                                @if($user->id != $game->creator->id)
+                                    <a class="btn btn-danger" href="{{ route('games.transfer', [$game->id, $user->id]) }}">Transferir</a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

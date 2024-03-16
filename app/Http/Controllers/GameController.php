@@ -189,6 +189,36 @@ class GameController extends Controller {
         return view('games.index', compact('games', 'boardgames', 'boardgame_id', 'creator', 'closed'));
     }
 
+    public function transferForm($id) {
+        if(Auth::check()) {
+            $game = Game::findOrFail($id);
+            $user = Auth::user();
+            $users = $game->users;
+
+            if($user->id == $game->creator->id) {
+                return view('games.transfer', compact('users', 'game'));
+            }
+        } else {
+            return redirect()->route('login');
+        }
+    }
+
+    public function transfer($id, $userId) {
+        if(Auth::check()) {
+            $game = Game::findOrFail($id);
+            $user = Auth::user();
+
+            if($user->id == $game->creator->id) {
+                $game->user_id = $userId;
+                $game->save();
+
+                return redirect()->route('games.show', ['id' => $id]);
+            }
+        } else {
+            return redirect()->route('login');
+        }
+    }
+
     private function validateGameUpdate(Request $request) {
         $rules = [
             'description' => 'required|string|max:255',
