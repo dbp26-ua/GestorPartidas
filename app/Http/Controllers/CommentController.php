@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Comment;
+use App\Models\Game;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;

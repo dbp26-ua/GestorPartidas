@@ -30,6 +30,11 @@
                 </select>
             </div>
 
+            <div class="form-group">
+                <label for="address">Dirección:</label>
+                <input type="text" name="address" id="address" class="form-control" value="{{ $address }}">
+            </div>
+
             <button type="submit" class="btn btn-success">Filtrar</button>
         </form>
     </div>
@@ -48,6 +53,7 @@
                         <th>Juego</th>
                         <th>Jugadores</th>
                         <th>Estado</th>
+                        <th>Dirección</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -57,6 +63,7 @@
                             <td>{{ $game->boardgame->name }}</td>
                             <td>{{ $game->players }} / {{ $game->max_players }}</td>
                             <td>{{ $game->closed ? "Cerrado" : "Abierto" }}</td>
+                            <td>{{ $game->address }}, {{ $game->place }}</td>
                             <td>
                                 <a class="btn btn-info" href="{{ route('games.show', $game->id) }}">Ver detalles</a>
                             </td>

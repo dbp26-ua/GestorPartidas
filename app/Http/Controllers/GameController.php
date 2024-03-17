@@ -19,8 +19,9 @@ class GameController extends Controller {
         $boardgame_id = -1;
         $creator = "";
         $closed = -1;
+        $address = "";
 
-        return view('games.index', compact('games', 'boardgames', 'boardgame_id', 'creator', 'closed'));
+        return view('games.index', compact('games', 'boardgames', 'boardgame_id', 'creator', 'closed', 'address'));
     }
 
     public function show($id) {
@@ -48,7 +49,7 @@ class GameController extends Controller {
             $game = new Game([
                 'description' => $request->description,
                 'boardgame_id' => $request->boardgame_id,
-                'board_id' => 0,
+                'board_id' => 1,
                 'user_id' => $user->id,
                 'closed' => false,
                 'max_players' => $request->max_players,
@@ -145,48 +146,52 @@ class GameController extends Controller {
         $games = Game::all();
         $boardgames = Boardgame::all();
 
-        $filteredBoardgames = $games;
-        $filteredCreator = $filteredBoardgames;
-        $filteredStatus = $filteredCreator;
-
         if($request->boardgame_id != -1) {
-            $filteredBoardgames = $games->filter(function ($game) use ($request) {
+            $games = $games->filter(function ($game) use ($request) {
                 if($request->boardgame_id == $game->boardgame->id) {
                     return true;
                 }
     
                 return false;
             })->values();
-            $games = $filteredBoardgames;
         }
 
         if($request->creator != null && $request->creator != "") {
-            $filteredCreator = $filteredBoardgames->filter(function ($game) use ($request) {
+            $games = $games->filter(function ($game) use ($request) {
                 if($request->creator == $game->creator->name) {
                     return true;
                 }
     
                 return false;
             })->values();
-            $games = $filteredCreator;
         }
 
         if($request->closed != -1) {
-            $filteredStatus = $filteredCreator->filter(function ($game) use ($request) {
+            $games = $games->filter(function ($game) use ($request) {
                 if($request->closed == $game->closed) {
                     return true;
                 }
     
                 return false;
             })->values();
-            $games = $filteredStatus;
+        }
+
+        if($request->address != null && $request->address != "") {
+            $games = $games->filter(function ($game) use ($request) {
+                if(str_contains($game->address, $request->address) || str_contains($game->city, $request->address)) {
+                    return true;
+                }
+    
+                return false;
+            })->values();
         }
 
         $boardgame_id = $request->boardgame_id;
         $creator = $request->creator;
         $closed = $request->closed;
+        $address = $request->address;
 
-        return view('games.index', compact('games', 'boardgames', 'boardgame_id', 'creator', 'closed'));
+        return view('games.index', compact('games', 'boardgames', 'boardgame_id', 'creator', 'closed', 'address'));
     }
 
     public function transferForm($id) {
