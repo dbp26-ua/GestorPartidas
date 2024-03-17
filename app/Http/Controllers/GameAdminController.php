@@ -126,6 +126,36 @@ class GameAdminController extends Controller {
         }
     }
 
+    public function transferForm($id) {
+        if(Auth::check()) {
+            $game = Game::findOrFail($id);
+            $user = Auth::user();
+            $users = $game->users;
+
+            if(Auth::user()->admin) {
+                return view('admin.games.transfer', compact('users', 'game'));
+            }
+        } else {
+            return redirect()->route('login');
+        }
+    }
+
+    public function transfer($id, $userId) {
+        if(Auth::check()) {
+            $game = Game::findOrFail($id);
+            $user = Auth::user();
+
+            if(Auth::user()->admin) {
+                $game->user_id = $userId;
+                $game->save();
+
+                return redirect()->route('admin.games.index');
+            }
+        } else {
+            return redirect()->route('login');
+        }
+    }
+
     private function validateGame(Request $request) {
         $rules = [
             'description' => 'required|string',

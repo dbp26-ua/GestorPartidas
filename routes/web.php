@@ -95,6 +95,8 @@ Route::prefix('/admin/games')->group(function() {
     Route::get('/{id}/edit', [GameAdminController::class, 'edit'])->name('admin.games.edit');
     Route::put('/{id}', [GameAdminController::class, 'update'])->name('admin.games.update');
     Route::delete('/{id}', [GameAdminController::class, 'delete'])->name('admin.games.delete');
+    Route::get('/{id}/transfer', [GameAdminController::class, 'transferForm'])->name('admin.games.transferForm');
+    Route::get('/{id}/transfer/{userId}', [GameAdminController::class, 'transfer'])->name('admin.games.transfer');
 });
 
 Route::prefix('/admin/boardgames')->group(function() {

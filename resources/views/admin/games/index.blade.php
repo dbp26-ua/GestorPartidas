@@ -36,6 +36,7 @@
                             <td>{{ $game->address }}, {{ $game->place }}</td>
                             <td>
                                 <a class="btn btn-info" href="{{ route('admin.games.edit', $game->id) }}">Editar</a>
+                                <a href="{{ route('admin.games.transferForm', $game->id) }}" class="btn btn-success">Transferir</a>
                                 <form action="{{ route('admin.games.delete', $game->id) }}" method="post" style="display:inline">
                                     @csrf
                                     @method('DELETE')
