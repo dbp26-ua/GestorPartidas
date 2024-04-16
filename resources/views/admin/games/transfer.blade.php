@@ -23,7 +23,7 @@
                             <td>{{ $user->name }}</td>
                             <td>
                                 @if($user->id != $game->creator->id)
-                                    <a class="btn btn-danger" href="{{ route('admin.games.transfer', [$game->id, $user->id]) }}">Transferir</a>
+                                    <a class="btn btn-danger" href="{{ route('admin.games.transfer', [$game->id, $user->id]) }}" onclick="return confirm('¿Estás seguro?')">Transferir</a>
                                 @endif
                             </td>
                         </tr>

@@ -24,7 +24,7 @@
                 @foreach($game->users as $user)
                     <li>{{ $user->name }} 
                         @if($game->creator->id == Auth::user()->id && $user->id != $game->creator->id)
-                            <a class="btn btn-danger" href="{{ route('games.remove', [$game->id, $user->id]) }}">Eliminar</a>
+                            <a class="btn btn-danger" href="{{ route('games.remove', [$game->id, $user->id]) }}" onclick="return confirm('¿Estás seguro?')">Eliminar</a>
                         @endif
                     </li>
                 @endforeach

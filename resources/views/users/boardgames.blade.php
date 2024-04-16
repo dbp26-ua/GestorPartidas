@@ -24,7 +24,7 @@
                             <td>{{ $boardgame->name }}</td>
                             <td>{{ $boardgame->description }}</td>
                             <td>
-                                <a class="btn btn-danger" href="{{ route('boardgames.remove', $boardgame->id) }}">Eliminar</a>
+                                <a class="btn btn-danger" href="{{ route('boardgames.remove', $boardgame->id) }}" onclick="return confirm('¿Estás seguro')">Eliminar</a>
                                 <a class="btn btn-success" href="{{ route('boardgames.boards', $boardgame->id) }}">Tableros</a>
                             </td>
                         </tr>
