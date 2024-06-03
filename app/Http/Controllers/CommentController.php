@@ -18,20 +18,18 @@ class CommentController extends Controller {
         if(Auth::check()) {
             $user = auth()->user();
             $game = Game::findOrFail($gameId);
-            if(in_array($user, $game->users)) {
-                $this->validateComment($request);
+            $this->validateComment($request);
 
-                $comment = new Comment([
-                    'author' => $user->name,
-                    'game_id' => $gameId,
-                    'user_id' => $user->id,
-                    'text' => $request->text,
-                ]);
+            $comment = new Comment([
+                'author' => $user->name,
+                'game_id' => $gameId,
+                'user_id' => $user->id,
+                'text' => $request->text,
+            ]);
 
-                $comment->save();
+            $comment->save();
 
-                return redirect()->route('games.show', ['id' => $gameId]);
-            }
+            return redirect()->route('games.show', ['id' => $gameId]);
         } else {
             return redirect()->route('login');
         }

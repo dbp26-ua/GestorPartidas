@@ -2,39 +2,41 @@
 @extends('layouts.app')
 
 @section('content')
-    <div>
-        <div class="col">
+    <div class="center">
+        <div class="col" style="margin-top: 20px">
             <h2>Listado de partidas</h2>
         </div>
     </div>
 
-    <div class="row mt-3">
-        <div class="col">
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th>Juego</th>
-                        <th>Jugadores</th>
-                        <th>Estado</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($games as $game)
-                        <tr>
-                            <td>{{ $game->boardgame->name }}</td>
-                            <td>{{ $game->players }} / {{ $game->max_players }}</td>
-                            <td>{{ $game->closed ? "Cerrado" : "Abierto" }}</td>
-                            <td>
-                                <a class="btn btn-info" href="{{ route('games.show', $game->id) }}">Ver detalles</a>
+    <div class="container mb-4">
+        <div class="row">
+            @foreach($games as $game)
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-header text-center"><h3>{{ $game->boardgame->name }}</h3></div>
+                            <p>Jugadores: {{ $game->players }} / {{ $game->max_players }}</p>
+                            <p>Estado: {{ $game->closed ? "Cerrado" : "Abierto" }}</p>
+                            <div class="text-center">
+                                <a class="btn btn-secondary btn-sm" href="{{ route('games.show', $game->id) }}">Ver detalles</a>
                                 @if($game->creator->id != Auth::user()->id)
-                                    <a class="btn btn-danger" href="{{ route('user.games.remove', $game->id) }}">Salirse</a>
+                                    <a class="btn btn-danger btn-sm" href="{{ route('user.games.remove', $game->id) }}">Salirse</a>
                                 @endif
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
         </div>
     </div>
+
+<style>
+.center {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    width: 95%;
+    text-align: center;
+}
+</style>
 @endsection

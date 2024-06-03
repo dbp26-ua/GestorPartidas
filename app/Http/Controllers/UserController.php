@@ -121,8 +121,8 @@ class UserController extends Controller {
     
             if($request->hasFile('photo')) {
                 $photo = $request->file('photo');
-                $photoName = $request->id.".".$photo->getClientOriginalExtension();
-                Image::make($photo)->resize(30, 30)->save(public_path('/userPhotos/'.$photoName));
+                $photoName = $user->id.".".$photo->extension();
+                $photo->move(public_path('userPhotos'), $photoName);
     
                 $user->photo = "userPhotos/".$photoName;
             }

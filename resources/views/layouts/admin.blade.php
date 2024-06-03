@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'eBoard Administración') }}</title>
+    <title>{{ config('app.name', 'SocialTabletop Administración') }}</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -24,7 +24,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container-fluid">
-                <a class="navbar-brand" href="{{ route('admin') }}">eBoard Administración</a>
+                <a class="navbar-brand" href="{{ route('admin') }}">SocialTabletop Administración</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -33,7 +33,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="navbar-nav">
-                            <a class="nav-link" href="{{ route('home') }}">Página principal</a>
+                            <a class="nav-link" href="{{ route('games.index') }}">Página principal</a>
                         </li>
                         <li class="navbar-nav">
                             <a class="nav-link" href="{{ route('admin.users.index') }}">Usuarios</a>

@@ -104,6 +104,14 @@ class BoardgameController extends Controller {
                 'valid' => false,
             ]);
 
+            if($request->hasFile('photo')) {
+                $photo = $request->file('photo');
+                $photoName = $boardgame->name.".".$photo->extension();
+                $photo->move(public_path('images'), $photoName);
+    
+                $boardgame->photo = "images/".$photoName;
+            }
+
             $boardgame->save();
 
             $user = Auth::user();

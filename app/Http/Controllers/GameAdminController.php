@@ -47,7 +47,7 @@ class GameAdminController extends Controller {
                 $game = new Game([
                     'description' => $request->description,
                     'boardgame_id' => $request->boardgame_id,
-                    'board_id' => 0,
+                    'board_id' => 1,
                     'user_id' => $request->user_id,
                     'closed' => false,
                     'max_players' => $request->max_players,

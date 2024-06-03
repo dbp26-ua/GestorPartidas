@@ -2,18 +2,21 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div>
+    <div class="center">
         <div class="col">
             <h2>Listado de partidas</h2>
         </div>
     </div>
 
-    <div class="row mt-3">
+    <div class="center">
+        <a href="{{ route('admin.games.create') }}" class="btn btn-dark btn-sm">Crear partida</a>
+    </div>
+
+    <div class="row mt-3 center">
         <div class="col">
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Descripción</th>
                         <th>Juego</th>
                         <th>Tablero</th>
@@ -26,7 +29,6 @@
                 <tbody>
                     @foreach($games as $game)
                         <tr>
-                            <td>{{ $game->id }}</td>
                             <td>{{ $game->description }}</td>
                             <td>{{ $game->boardgame->name }}</td>
                             <td>{{ $game->board->name }}</td>
@@ -35,12 +37,12 @@
                             <td>{{ $game->players }}/{{ $game->max_players }}</td>
                             <td>{{ $game->address }}, {{ $game->place }}</td>
                             <td>
-                                <a class="btn btn-info" href="{{ route('admin.games.edit', $game->id) }}">Editar</a>
-                                <a href="{{ route('admin.games.transferForm', $game->id) }}" class="btn btn-success">Transferir</a>
+                                <a class="btn btn-secondary btn-sm" href="{{ route('admin.games.edit', $game->id) }}">Editar</a>
+                                <a href="{{ route('admin.games.transferForm', $game->id) }}" class="btn btn-primary btn-sm">Transferir</a>
                                 <form action="{{ route('admin.games.delete', $game->id) }}" method="post" style="display:inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro?')">Eliminar</button>
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro?')">Eliminar</button>
                                 </form>
                             </td>
                         </tr>
@@ -50,7 +52,13 @@
         </div>
     </div>
 
-    <div>
-        <a href="{{ route('admin.games.create') }}" class="btn btn-primary">Crear partida</a>
-    </div>
+<style>
+.center {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    width: 95%;
+    text-align: center;
+}
+</style>
 @endsection

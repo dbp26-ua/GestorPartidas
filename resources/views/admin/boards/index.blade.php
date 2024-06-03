@@ -2,18 +2,21 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div>
+    <div class="center">
         <div class="col">
             <h2>Listado de tableros</h2>
         </div>
     </div>
 
-    <div class="row mt-3">
+    <div class="center">
+        <a href="{{ route('admin.boards.create') }}" class="btn btn-dark btn-sm">Crear tablero</a>
+    </div>
+
+    <div class="row mt-3 center">
         <div class="col">
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Nombre</th>
                         <th>Descripción</th>
                         <th>Juego</th>
@@ -23,20 +26,19 @@
                 <tbody>
                     @foreach($boards as $board)
                         <tr>
-                            <td>{{ $board->id }}</td>
                             <td>{{ $board->name }}</td>
                             <td>{{ $board->description }}</td>
                             <td>{{ $board->boardgame->name }}</td>
                             <td>{{ $board->valid ? 'Sí' : 'No' }}</td>
                             <td>
-                                <a class="btn btn-info" href="{{ route('admin.boards.edit', $board->id) }}">Editar</a>
+                                <a class="btn btn-secondary btn-sm" href="{{ route('admin.boards.edit', $board->id) }}">Editar</a>
                                 @if(!$board->valid)
-                                    <a href="{{ route('admin.boards.validate', $board->id) }}" class="btn btn-success">Validar</a>
+                                    <a href="{{ route('admin.boards.validate', $board->id) }}" class="btn btn-success btn-sm">Validar</a>
                                 @endif
                                 <form action="{{ route('admin.boards.delete', $board->id) }}" method="post" style="display:inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro?')">Eliminar</button>
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro?')">Eliminar</button>
                                 </form>
                             </td>
                         </tr>
@@ -46,7 +48,13 @@
         </div>
     </div>
 
-    <div>
-        <a href="{{ route('admin.boards.create') }}" class="btn btn-primary">Crear tablero</a>
-    </div>
+<style>
+.center {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    width: 95%;
+    text-align: center;
+}
+</style>
 @endsection

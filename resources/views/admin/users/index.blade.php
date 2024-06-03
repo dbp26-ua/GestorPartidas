@@ -2,18 +2,21 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div>
+    <div class="center">
         <div class="col">
             <h2>Listado de jugadores</h2>
         </div>
     </div>
 
-    <div class="row mt-3">
+    <div class="center">
+        <a href="{{ route('admin.users.create') }}" class="btn btn-dark btn-sm">Crear usuario</a>
+    </div>
+
+    <div class="row mt-3 center">
         <div class="col">
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Nombre</th>
                         <th>Email</th>
                         <th>Teléfono</th>
@@ -26,7 +29,6 @@
                 <tbody>
                     @foreach($users as $user)
                         <tr>
-                            <td>{{ $user->id }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->phone }}</td>
@@ -35,11 +37,11 @@
                             <td>{{ $user->zip_code }}</td>
                             <td>{{ $user->admin ? "Sí" : "No" }}</td>
                             <td>
-                                <a class="btn btn-info" href="{{ route('admin.users.edit', $user->id) }}">Editar</a>
+                                <a class="btn btn-secondary btn-sm" href="{{ route('admin.users.edit', $user->id) }}">Editar</a>
                                 <form action="{{ route('admin.users.delete', $user->id) }}" method="post" style="display:inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro?')">Eliminar</button>
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro?')">Eliminar</button>
                                 </form>
                             </td>
                         </tr>
@@ -49,7 +51,13 @@
         </div>
     </div>
 
-    <div>
-        <a href="{{ route('admin.users.create') }}" class="btn btn-primary">Crear usuario</a>
-    </div>
+<style>
+.center {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    width: 95%;
+    text-align: center;
+}
+</style>
 @endsection

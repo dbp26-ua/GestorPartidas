@@ -41,7 +41,7 @@ class UserAdminController extends Controller {
                 $user = new User([
                     'name' => $request->name,
                     'email' => $request->email,
-                    'password' => $request->password,
+                    'password' => Hash::make($request->password),
                     'phone' => $request->phone,
                     'country' => $request->country,
                     'city' => $request->city,

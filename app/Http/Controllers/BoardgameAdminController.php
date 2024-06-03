@@ -41,9 +41,17 @@ class BoardgameAdminController extends Controller {
                 $boardgame = new Boardgame([
                     'name' => $request->name,
                     'description' => $request->description,
-                    'valid' => true,
+                    'valid' => false,
                 ]);
-
+    
+                if($request->hasFile('photo')) {
+                    $photo = $request->file('photo');
+                    $photoName = $boardgame->name.".".$photo->extension();
+                    $photo->move(public_path('images'), $photoName);
+        
+                    $boardgame->photo = "images/".$photoName;
+                }
+    
                 $boardgame->save();
 
                 return redirect()->route('admin.boardgames.index');       
@@ -71,7 +79,16 @@ class BoardgameAdminController extends Controller {
                 $this->validateBoardgame($request);
 
                 $boardgame = Boardgame::findOrFail($id);
-                $boardgame->update($request->all());
+                $boardgame->name = $request->name;
+                $boardgame->description = $request->description;
+                if($request->hasFile('photo')) {
+                    $photo = $request->file('photo');
+                    $photoName = $boardgame->name.".".$photo->extension();
+                    $photo->move(public_path('images'), $photoName);
+        
+                    $boardgame->photo = "images/".$photoName;
+                }
+
                 $boardgame->save();
 
                 return redirect()->route('admin.boardgames.index');

@@ -46,6 +46,12 @@ class GameController extends Controller {
             $this->validateGame($request);
             $user = auth()->user();
 
+            $boardgame = Boardgame::findOrFail($request->boardgame_id);
+            $boards = DB::table('boards')->where('boardgame_id', '=', $id)->where('valid', '=', true)->get();
+            if(empty($boards)) {
+                return redirect()->route('games.index');
+            }
+
             $game = new Game([
                 'description' => $request->description,
                 'boardgame_id' => $request->boardgame_id,
