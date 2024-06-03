@@ -90,13 +90,17 @@
                         <div class="card-body text-center">
                             @foreach($game->users as $user)
                                 <p>
-                                    @if($game->creator->id == Auth::user()->id && $user->id != $game->creator->id)
-                                        <form action="{{ route('games.remove', [$game->id, $user->id]) }}" method="post" style="display:inline">
-                                            @csrf
-                                            @method('DELETE')
+                                    @if(Auth::check())
+                                        @if($game->creator->id == Auth::user()->id && $user->id != $game->creator->id)
+                                            <form action="{{ route('games.remove', [$game->id, $user->id]) }}" method="post" style="display:inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <b><i>{{ $user->name }}</i></b>
+                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro?')">Expulsar</button>
+                                            </form>
+                                        @else
                                             <b><i>{{ $user->name }}</i></b>
-                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro?')">Expulsar</button>
-                                        </form>
+                                        @endif
                                     @else
                                         <b><i>{{ $user->name }}</i></b>
                                     @endif
