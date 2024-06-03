@@ -17,7 +17,7 @@
                             <div class="card-body">
                                 <div class="card-header text-center"><h3>{{ $user->name }}</h3></div>
                                 <div class="text-center" style="margin-top: 15px">
-                                    <a class="btn btn-secondary btn-sm" href="{{ route('admin.games.transfer', [$game->id, $user->id]) }}">Transferir</a>
+                                    <a class="btn btn-secondary btn-sm" href="{{ route('admin.games.transfer', [$game->id, $user->id]) }}" onclick="return confirm('¿Estás seguro?')">Transferir</a>
                                 </div>
                             </div>
                         </div>

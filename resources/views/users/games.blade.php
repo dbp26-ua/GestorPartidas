@@ -20,7 +20,7 @@
                             <div class="text-center">
                                 <a class="btn btn-secondary btn-sm" href="{{ route('games.show', $game->id) }}">Ver detalles</a>
                                 @if($game->creator->id != Auth::user()->id)
-                                    <a class="btn btn-danger btn-sm" href="{{ route('user.games.remove', $game->id) }}">Salirse</a>
+                                    <a class="btn btn-danger btn-sm" href="{{ route('user.games.remove', $game->id) }}" onclick="return confirm('¿Estás seguro?')">Salirse</a>
                                 @endif
                             </div>
                         </div>
