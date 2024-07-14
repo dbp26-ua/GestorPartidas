@@ -16,17 +16,17 @@
                                 <div class="col" style="text-align: right;">
                                     <p><b>Juego:</b></p>
                                     <p><b>Tablero:</b></p>
-                                    <p><b>Descripción:</b></p>
-                                    <p><b>Lugar:</b></p>
                                     <p><b>Estado:</b></p>
+                                    <p><b>Lugar:</b></p>
+                                    <p><b>Descripción:</b></p>
                                 </div>
 
                                 <div class="col" style="text-align: left;">
                                     <p>{{ $game->boardgame->name }}</p>
                                     <p>{{ $game->board->name }}</p>
-                                    <p>{{ $game->description }}</p>
-                                    <p>{{ $game->address }}, {{ $game->place }}</p>
                                     <p>{{ $game->closed ? "Cerrada" : "Abierta" }}</p>
+                                    <p>{{ $game->address }}, {{ $game->place }}</p>
+                                    <p>{{ $game->description }}</p>
                                 </div>
                             </div>
 
@@ -66,7 +66,7 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <p>El marcador rojo con una P indica la localización.</p>
-                                                        <img src="https://maps.googleapis.com/maps/api/staticmap?center={{ $game->place }}&size=450x450&key=AIzaSyCI5IvGyGHj3AuMwC4cprwx7aHBdqPw-Ps&zoom=16&markers=color:red|label:P|{{ $game->address }}" alt="Localización de la partida en el mapa.">
+                                                        <img src="https://maps.googleapis.com/maps/api/staticmap?center={{ $game->place }}&size=450x450&key=AIzaSyCI5IvGyGHj3AuMwC4cprwx7aHBdqPw-Ps&zoom=15&markers=color:red|label:P|{{ $game->address }}" alt="Localización de la partida en el mapa.">
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>

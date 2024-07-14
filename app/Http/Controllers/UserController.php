@@ -52,11 +52,13 @@ class UserController extends Controller {
             $user->games()->syncWithoutDetaching([$id]);
 
             $game = Game::findOrFail($id);
-            $game->players = $game->player + 1;
+            $game->players = $game->players + 1;
 
             if($game->players >= $game->max_players) {
                 $game->closed = true;
             }
+
+            $game->save();
 
             return redirect()->route('games.show', ['id' => $id]);
         } else {
@@ -75,11 +77,13 @@ class UserController extends Controller {
                 $user = Auth::user();
                 $user->games()->detach($id);
 
-                $game->players = $game->player - 1;
+                $game->players = $game->players - 1;
 
                 if($game->players < $game->max_players) {
                     $game->closed = false;
                 }
+
+                $game->save();
 
                 return redirect()->back();
             }
