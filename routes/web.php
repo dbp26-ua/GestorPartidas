@@ -37,7 +37,7 @@ Route::prefix('/games')->group(function() {
     Route::get('/{id}', [GameController::class, 'show'])->name('games.show');
     Route::get('/{id}/edit', [GameController::class, 'edit'])->name('games.edit');
     Route::put('/{id}/update', [GameController::class, 'update'])->name('games.update');
-    Route::get('/{id}/remove/{user}', [GameController::class, 'remove'])->name('games.remove');
+    Route::delete('/{id}/remove/{user}', [GameController::class, 'remove'])->name('games.remove');
     Route::delete('/delete/{id}', [GameController::class, 'delete'])->name('games.delete');
     Route::post('/filter', [GameController::class, 'filter'])->name('games.filter');
     Route::get('/{id}/transfer', [GameController::class, 'transferForm'])->name('games.transferForm');

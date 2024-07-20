@@ -129,7 +129,7 @@ class GameController extends Controller {
             $game->players = $game->players - 1;
             $game->save();
 
-            return redirect()->route('games.show', ['id' => $id]);
+            return redirect()->route('games.show', ['id' => $gameId]);
         } else {
             return redirect()->route('login');
         }
